@@ -13,6 +13,7 @@ const express_rate_limit_1 = __importDefault(require("express-rate-limit"));
 const http_1 = require("http");
 const socket_io_1 = require("socket.io");
 const client_1 = require("@prisma/client");
+const path_1 = __importDefault(require("path"));
 const auth_routes_1 = __importDefault(require("./routes/auth.routes"));
 const user_routes_1 = __importDefault(require("./routes/user.routes"));
 const incident_routes_1 = __importDefault(require("./routes/incident.routes"));
@@ -57,6 +58,8 @@ app.use('/api/', limiter);
 // Body Parsing
 app.use(express_1.default.json({ limit: '10mb' }));
 app.use(express_1.default.urlencoded({ extended: true, limit: '10mb' }));
+// Serve static uploads
+app.use('/uploads', express_1.default.static(path_1.default.join(__dirname, '../uploads')));
 // API Routes
 app.use('/api/auth', auth_routes_1.default);
 app.use('/api/users', user_routes_1.default);
@@ -79,7 +82,7 @@ const PORT = process.env.PORT || 5000;
 httpServer.listen(PORT, () => {
     console.log(`🚀 SafeCampus AI Backend running on port ${PORT}`);
     console.log(`📡 Socket.IO ready`);
-    console.log(`🔗 API: http://localhost:${PORT}/api`);
+    console.log(`Server running on port ${PORT}`);
 });
 exports.default = app;
 //# sourceMappingURL=server.js.map
