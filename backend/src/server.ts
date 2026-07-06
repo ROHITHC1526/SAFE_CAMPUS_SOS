@@ -45,10 +45,15 @@ app.use(helmet({
   crossOriginResourcePolicy: { policy: 'cross-origin' },
 }));
 
-app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
-  credentials: true,
-}));
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",          // Local frontend
+      "https://safe-campus-sos.vercel.app/" // Deployed frontend
+    ],
+    credentials: true
+  })
+);
 
 // Rate Limiting
 const limiter = rateLimit({
