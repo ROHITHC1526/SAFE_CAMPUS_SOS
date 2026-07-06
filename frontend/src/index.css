@@ -1,0 +1,442 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+  --primary: #ef4444;
+  --primary-light: #f87171;
+  --primary-dark: #b91c1c;
+  --accent: #10b981;
+  --danger: #ef4444;
+  --danger-light: #f87171;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --bg-dark: #000000;
+  --bg-card: #0a0a0c;
+  --bg-elevated: #121214;
+  --bg-glass: rgba(10, 10, 12, 0.75);
+  --border: #27272a;
+  --text-primary: #ffffff;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+  --gradient-primary: linear-gradient(135deg, #ef4444 0%, #991b1b 100%);
+  --gradient-danger: linear-gradient(135deg, #ef4444 0%, #991b1b 100%);
+  --gradient-success: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.6);
+  --shadow-glow: 0 0 40px rgba(239, 68, 68, 0.18);
+  --glass-bg: rgba(10, 10, 12, 0.65);
+  --glass-border: rgba(255, 255, 255, 0.06);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* ─── Glass Card ─────────────────────────────────────────────────── */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  border-color: rgba(99, 102, 241, 0.2);
+  box-shadow: var(--shadow-glow);
+}
+
+/* ─── Gradient Text ──────────────────────────────────────────────── */
+.gradient-text {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── SOS Button ─────────────────────────────────────────────────── */
+.sos-button {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: var(--gradient-danger);
+  border: none;
+  color: white;
+  font-size: 32px;
+  font-weight: 900;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+  user-select: none;
+  -webkit-user-select: none;
+  z-index: 1;
+}
+
+.sos-button::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  background: var(--gradient-danger);
+  opacity: 0.3;
+  z-index: -1;
+  animation: sosPulse 2s ease-in-out infinite;
+}
+
+.sos-button::after {
+  content: '';
+  position: absolute;
+  inset: -16px;
+  border-radius: 50%;
+  background: var(--gradient-danger);
+  opacity: 0.15;
+  z-index: -2;
+  animation: sosPulse 2s ease-in-out infinite 0.5s;
+}
+
+.sos-button:active {
+  transform: scale(0.95);
+}
+
+@keyframes sosPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.1;
+  }
+}
+
+/* ─── Stats Card ─────────────────────────────────────────────────── */
+.stat-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient-primary);
+}
+
+/* ─── Landing Page ───────────────────────────────────────────────── */
+.hero-bg {
+  background: radial-gradient(ellipse at 20% 50%, rgba(239, 68, 68, 0.15) 0%, transparent 50%),
+              radial-gradient(ellipse at 80% 20%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
+              radial-gradient(ellipse at 50% 100%, rgba(255, 255, 255, 0.02) 0%, transparent 50%),
+              var(--bg-dark);
+}
+
+.floating-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.4;
+  animation: float 20s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(30px, -30px) scale(1.1); }
+  50% { transform: translate(-20px, 20px) scale(0.9); }
+  75% { transform: translate(10px, -10px) scale(1.05); }
+}
+
+/* ─── Dashboard Layout ───────────────────────────────────────────── */
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.dashboard-sidebar {
+  width: 260px;
+  background: var(--bg-card);
+  border-right: 1px solid var(--border);
+  padding: 24px 16px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  overflow-y: auto;
+  z-index: 100;
+}
+
+.dashboard-content {
+  margin-left: 260px;
+  flex: 1;
+  padding: 24px;
+  min-height: 100vh;
+}
+
+/* ─── Notification Badge ─────────────────────────────────────────── */
+.notification-badge {
+  position: relative;
+}
+
+.notification-badge::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 10px;
+  height: 10px;
+  background: var(--danger);
+  border-radius: 50%;
+  border: 2px solid var(--bg-dark);
+}
+
+/* ─── Incident Severity ──────────────────────────────────────────── */
+.severity-critical { color: #ef4444; }
+.severity-high { color: #f97316; }
+.severity-medium { color: #f59e0b; }
+.severity-low { color: #10b981; }
+
+.severity-badge {
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.severity-badge.critical { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
+.severity-badge.high { background: rgba(249, 115, 22, 0.15); color: #f97316; }
+.severity-badge.medium { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
+.severity-badge.low { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+
+/* ─── Status Badge ───────────────────────────────────────────────── */
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-badge.pending { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
+.status-badge.assigned { background: rgba(99, 102, 241, 0.15); color: #6366f1; }
+.status-badge.in-progress { background: rgba(6, 182, 212, 0.15); color: #06b6d4; }
+.status-badge.resolved { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+
+/* ─── Chat ───────────────────────────────────────────────────────── */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--bg-card);
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.chat-bubble {
+  max-width: 70%;
+  padding: 10px 16px;
+  border-radius: 16px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.chat-bubble.sent {
+  align-self: flex-end;
+  background: var(--primary);
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+.chat-bubble.received {
+  align-self: flex-start;
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  border-bottom-left-radius: 4px;
+}
+
+/* ─── Timeline ───────────────────────────────────────────────────── */
+.incident-timeline {
+  position: relative;
+  padding-left: 32px;
+}
+
+.incident-timeline::before {
+  content: '';
+  position: absolute;
+  left: 12px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--border);
+}
+
+.timeline-item {
+  position: relative;
+  padding-bottom: 24px;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -24px;
+  top: 4px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--primary);
+  border: 2px solid var(--bg-dark);
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .dashboard-sidebar {
+    display: none;
+  }
+
+  .dashboard-content {
+    margin-left: 0;
+    padding: 16px;
+  }
+
+  .sos-button {
+    width: 120px;
+    height: 120px;
+    font-size: 24px;
+  }
+}
+
+/* ─── Ant Design Overrides ───────────────────────────────────────── */
+.ant-layout {
+  background: var(--bg-dark) !important;
+}
+
+.ant-card {
+  background: var(--glass-bg) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: 16px !important;
+}
+
+.ant-table {
+  background: transparent !important;
+}
+
+.ant-table-thead > tr > th {
+  background: var(--bg-elevated) !important;
+  border-bottom: 1px solid var(--border) !important;
+}
+
+.ant-table-tbody > tr > td {
+  border-bottom: 1px solid rgba(42, 42, 74, 0.5) !important;
+}
+
+.ant-table-tbody > tr:hover > td {
+  background: rgba(99, 102, 241, 0.05) !important;
+}
+
+.ant-modal-content {
+  background: var(--bg-elevated) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 16px !important;
+}
+
+.ant-drawer-content {
+  background: var(--bg-card) !important;
+}
+
+/* ─── Animations ─────────────────────────────────────────────────── */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, var(--bg-elevated) 25%, var(--bg-card) 50%, var(--bg-elevated) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
+
+/* ─── Map Overrides ──────────────────────────────────────────────── */
+.leaflet-container {
+  border-radius: 16px;
+  z-index: 1;
+}
+
+.leaflet-control-zoom {
+  border: 1px solid var(--border) !important;
+  border-radius: 8px !important;
+  overflow: hidden;
+}
+
+.leaflet-control-zoom a {
+  background: var(--bg-card) !important;
+  color: var(--text-primary) !important;
+  border-bottom: 1px solid var(--border) !important;
+}
