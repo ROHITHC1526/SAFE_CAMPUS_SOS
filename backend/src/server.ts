@@ -29,7 +29,7 @@ const httpServer = createServer(app);
 export const prisma = new PrismaClient();
 
 // Socket.IO
-const io = new SocketServer(httpServer, {
+export const io = new SocketServer(httpServer, {
   cors: {
     origin: process.env.FRONTEND_URL || 'http://localhost:5173',
     methods: ['GET', 'POST'],
@@ -45,13 +45,27 @@ app.use(helmet({
   crossOriginResourcePolicy: { policy: 'cross-origin' },
 }));
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://safe-campus-sos.vercel.app"
+];
+
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",          // Local frontend
-      "https://safe-campus-sos.vercel.app" // Deployed frontend
-    ],
-    credentials: true
+    origin: (origin, callback) => {
+      if (
+        !origin ||
+        allowedOrigins.includes(origin) ||
+        origin.endsWith(".vercel.app")
+      ) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
@@ -97,6 +111,4 @@ httpServer.listen(PORT, () => {
   console.log(`📡 Socket.IO ready`);
   console.log(`Server running on port ${PORT}`);
 });
-
-export { io };
 export default app;
